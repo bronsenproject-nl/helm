@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "gitlab.fullname" . }}
+  labels:
+    app: {{ template "gitlab.name" . }}
+    chart: {{ template "gitlab.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+data:
+  gitlab.rb: |-
+    # General configuration
+    {{- range .Values.ingress.hosts }}
+    external_url 'http://{{ .host }}'
+    {{- end }}
+    gitlab_rails['initial_root_password'] = '{{ .Values.auth.initialPassword }}''
+    
+
+    # Redis configuration
+    redis['enabled'] = false
+    gitlab_rails['redis_host'] = '{{ .Values.redis.fullnameOverride }}-master'
+    gitlab_rails['redis_port'] = 6379
+    gitlab_rails['redis_password'] = '{{ .Values.redis.auth.password }}'
+
+    # Postgres configuration
+    postgresql['enable'] = false
+    gitlab_rails['db_adapter'] = 'postgresql'
+    gitlab_rails['db_encoding'] = 'utf8'
+    gitlab_rails['db_host'] = '{{ .Values.postgresql.fullnameOverride }}'
+    gitlab_rails['db_port'] = 5432
+    gitlab_rails['db_username'] = '{{ .Values.postgresql.postgresqlUsername }}'
+    gitlab_rails['db_password'] = '{{ .Values.postgresql.postgresqlPassword }}'
+
+    # Registry configuration
+    # gitlab_rails['registry_enabled'] = true
+    # registry_external_url '.Values.registry.ingress.hosts.host '
+    # gitlab_rails['registry_host'] = 'Values.registry.fullname '
