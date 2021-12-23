@@ -30,6 +30,9 @@ data:
     gitlab_rails['db_username'] = '{{ .Values.postgresql.postgresqlUsername }}'
     gitlab_rails['db_password'] = '{{ .Values.postgresql.postgresqlPassword }}'
 
+    # Monitoring
+    prometheus['monitor_kubernetes'] = false
+
     # Registry configuration
     # gitlab_rails['registry_enabled'] = true
     # registry_external_url '.Values.registry.ingress.hosts.host '

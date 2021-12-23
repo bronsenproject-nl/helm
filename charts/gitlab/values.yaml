@@ -17,6 +17,7 @@ redis:
   master: 
     persistence: 
       enabled: true
+      existingClaim: data-redis
   architecture: standalone
   auth:
     password: xxxx
@@ -26,6 +27,7 @@ postgresql:
   fullnameOverride: postgres
   persistence: 
     enabled: true
+    existingClaim: data-postgres
   postgresqlDatabase: gitlabhq_production
   postgresqlPassword: sdfgkdsjhfdkjfew
   existingSecret: ""
@@ -64,9 +66,9 @@ persistence:
   accessMode: ReadWriteOnce
   size: 5Gi
   existingClaim: 
-    data: ""
-    config: ""
-    logs: ""
+    data: data-gitlab
+    config: config-gitlab
+    logs: logs-gitlab
 
 service:
   type: ClusterIP
