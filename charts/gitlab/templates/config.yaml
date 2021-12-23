@@ -13,8 +13,7 @@ data:
     {{- range .Values.ingress.hosts }}
     external_url 'http://{{ .host }}'
     {{- end }}
-    gitlab_rails['initial_root_password'] = '{{ .Values.auth.initialPassword }}''
-    
+    gitlab_rails['initial_root_password'] = '{{ .Values.auth.initialPassword }}'
 
     # Redis configuration
     redis['enabled'] = false

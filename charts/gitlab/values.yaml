@@ -10,13 +10,13 @@ image:
   tag: "14.5.2-ce.0"
 
 auth:
-  initialPassword: admin
+  initialPassword: daskjgfhdaklbfjaldsjkdf
 
 redis:
   fullnameOverride: redis
   master: 
     persistence: 
-      enabled: false
+      enabled: true
   architecture: standalone
   auth:
     password: xxxx
@@ -25,11 +25,12 @@ redis:
 postgresql:
   fullnameOverride: postgres
   persistence: 
-    enabled: false
+    enabled: true
   postgresqlDatabase: gitlabhq_production
-  postgresqlUsername: gitlab
-  postgresqlPassword: xxxx
+  postgresqlPassword: sdfgkdsjhfdkjfew
   existingSecret: ""
+  image:
+    tag: 12.9.0-debian-10-r35
 
 imagePullSecrets: []
 nameOverride: ""
@@ -58,11 +59,14 @@ securityContext: {}
   # runAsUser: 1000
 
 persistence:
-  enabled: false
+  enabled: true
   storageClass: ""
   accessMode: ReadWriteOnce
   size: 5Gi
-  # existingClaim: ""
+  existingClaim: 
+    data: ""
+    config: ""
+    logs: ""
 
 service:
   type: ClusterIP

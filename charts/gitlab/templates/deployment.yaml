@@ -42,6 +42,8 @@ spec:
               mountPath: /var/opt/gitlab
             - name: gitlab-config
               mountPath: /etc/gitlab   
+            - name: gitlab-logs
+              mountPath: /var/log/gitlab   
           ports:
             - name: http
               containerPort: 80
@@ -50,27 +52,38 @@ spec:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 300
+            periodSeconds: 60
           readinessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 300
+            periodSeconds: 60
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: gitlab-data
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim | default (include "gitlab.fullname" .) }}
+            claimName: {{ .Values.persistence.existingClaim.data | default (printf "%s-%s" "data" (include "gitlab.fullname" .)) }}
           {{- else }}
           emptyDir: {}
           {{- end }}
         - name: gitlab-config
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim | default (include "gitlab.fullname" .) }}
+            claimName: {{ .Values.persistence.existingClaim.config | default (printf "%s-%s" "config" (include "gitlab.fullname" .)) }}
           {{- else }}
           emptyDir: {}
-          {{- end -}}
+          {{- end }}
+        - name: gitlab-logs
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim.logs | default (printf "%s-%s" "logs" (include "gitlab.fullname" .)) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
