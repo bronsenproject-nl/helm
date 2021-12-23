@@ -10,26 +10,26 @@ image:
   tag: "14.5.2-ce.0"
 
 auth:
-  initialPassword: daskjgfhdaklbfjaldsjkdf
+  initialPassword: xxxxx
 
 redis:
   fullnameOverride: redis
   master: 
     persistence: 
       enabled: true
-      existingClaim: data-redis
+      # existingClaim: data-redis
   architecture: standalone
   auth:
-    password: xxxx
+    password: xxxxx
     existingSecret: ""
 
 postgresql:
   fullnameOverride: postgres
   persistence: 
     enabled: true
-    existingClaim: data-postgres
+    # existingClaim: data-postgres
   postgresqlDatabase: gitlabhq_production
-  postgresqlPassword: sdfgkdsjhfdkjfew
+  postgresqlPassword: xxxxx
   existingSecret: ""
   image:
     tag: 12.9.0-debian-10-r35
@@ -66,9 +66,9 @@ persistence:
   accessMode: ReadWriteOnce
   size: 5Gi
   existingClaim: 
-    data: data-gitlab
-    config: config-gitlab
-    logs: logs-gitlab
+    # data: data-gitlab
+    # config: config-gitlab
+    # logs: logs-gitlab
 
 service:
   type: ClusterIP
