@@ -14,17 +14,35 @@ questions:
       required: true
       default: gitlab.haakma.org
       group: Provisioning
-    - variable: ingress.hosts[0].path
+    - variable: ingress.hosts[0].paths[0].path
       type: string
       label: Host path
       required: true
       default: /
       group: Provisioning
-  - variable: persistence.existingClaim
-    type: string
-    label: Existing volume claim
+  - variable: persistence.enabled
+    type: boolean
+    label: Persistence enabled
     required: true
+    default: true
     group: Provisioning
+    show_subquestion_if: true
+    subquestions:
+    - variable: persistence.existingClaim.data
+      type: string
+      label: Existing volume claim for data
+      required: false
+      group: Provisioning
+    - variable: persistence.existingClaim.config
+      type: string
+      label: Existing volume claim for configuration
+      required: false
+      group: Provisioning
+    - variable: persistence.existingClaim.logs
+      type: string
+      label: Existing volume claim for logs
+      required: false
+      group: Provisioning
   - variable: auth.initialPassword
     type: password
     label: Initial password
