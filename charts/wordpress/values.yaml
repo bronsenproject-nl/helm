@@ -1,0 +1,11 @@
+wordpress:
+  mariadb:
+    auth:
+      database: haakma
+      username: sido
+      password: dhfsaifheapuoif
+
+hostname: haakma.example.org
+
+persistence:
+  # existingClaim: xxxx

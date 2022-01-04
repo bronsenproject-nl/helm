@@ -3,10 +3,10 @@ name: gitlab
 description: A Helm chart for GitLab
 type: application
 version: 0.1.0
-appVersion: "1.16.0"
+appVersion: "14.5.2"
 maintainers:
 - name: sidohaakma
-icon: https://gitlab.bronsenproject.nl/devops/helm/charts/gitlab/catalogIcon.svg
+icon: https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png
 dependencies:
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami

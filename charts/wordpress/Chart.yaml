@@ -1,0 +1,13 @@
+apiVersion: v2
+name: wordpress
+description: A Helm chart for Wordpress
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+icon: https://s1.wp.com/wp-content/themes/h4/landing/marketing/pages/_common/components/difm-pitch/media/builtByWP.svg
+maintainers:
+- name: sidohaakma
+dependencies:
+  - name: wordpress
+    repository: https://charts.bitnami.com/bitnami
+    version: 12.2.7

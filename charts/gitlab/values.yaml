@@ -20,7 +20,7 @@ redis:
       # existingClaim: data-redis
   architecture: standalone
   auth:
-    password: xxxxx
+    password: xxxxxxxxx
     existingSecret: ""
 
 postgresql:
@@ -29,7 +29,7 @@ postgresql:
     enabled: true
     # existingClaim: data-postgres
   postgresqlDatabase: gitlabhq_production
-  postgresqlPassword: xxxxx
+  postgresqlPassword: xxxxxxxxx
   existingSecret: ""
   image:
     tag: 12.9.0-debian-10-r35
@@ -79,7 +79,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
   hosts:
-    - host: gitlab.example.local
+    - host: gitlab.haakma.org
       paths: /
 
 resources: {}
