@@ -2,7 +2,7 @@
 
 ## Migrate to kubernetes deployment
 
-*Copy the content in the container.*
+### Copy the content in the container
 
 The `wp-content` directory is located in `/bitnami/wordpress` in the container.
 
@@ -26,8 +26,7 @@ mv /bitnami/wordpress/wp-content /bitnami/wordpress/wp-content_backup
 mv /tmp/wp-content /bitnami/wordpress/
 ```
 
-
-*Load the database in the container*
+### Load the database in the container
 
 Copy the backup to the mysql docker
 

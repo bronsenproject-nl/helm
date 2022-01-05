@@ -35,6 +35,6 @@ questions:
     group: Database
   - variable: wordpress.mariadb.auth.password
     type: Password
-    label: assword
+    label: Password
     required: true
     group: Database
