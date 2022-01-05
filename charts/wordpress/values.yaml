@@ -16,3 +16,6 @@ wordpress:
   
   persistence:
     # existingClaim: xxxx
+
+  service:
+    type: ClusterIP
