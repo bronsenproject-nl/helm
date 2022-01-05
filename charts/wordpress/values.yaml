@@ -1,11 +1,18 @@
 wordpress:
   mariadb:
     auth:
-      database: haakma
-      username: sido
-      password: dhfsaifheapuoif
+      database: wordpress
+      username: wordpress
+      password: xxxx
 
-hostname: haakma.example.org
-
-persistence:
-  # existingClaim: xxxx
+  wordpressUsername: user
+  wordpressPassword: xxxx
+  
+  # existingSecret: 
+  
+  ingress:
+    enabled: true
+    hostname: example.org
+  
+  persistence:
+    # existingClaim: xxxx

@@ -1,0 +1,40 @@
+---
+questions:
+  - variable: wordpress.ingress.enabled
+    type: boolean
+    label: Ingress enabled
+    required: true
+    default: true
+    group: Provisioning
+    show_subquestion_if: true
+    subquestions:
+    - variable: wordpress.ingress.hostname
+      type: string
+      label: Hostname
+      required: true
+      group: Provisioning
+  - variable: wordpress.wordpressUsername
+    type: string
+    label: Username
+    required: true
+    group: Authentication
+  - variable: wordpress.wordpressPassword
+    type: password
+    label: Password
+    required: true
+    group: Authentication
+  - variable: wordpress.mariadb.auth.database
+    type: string
+    label: Database
+    required: true
+    group: Database
+  - variable: wordpress.mariadb.auth.username
+    type: string
+    label: Username
+    required: true
+    group: Database
+  - variable: wordpress.mariadb.auth.password
+    type: Password
+    label: assword
+    required: true
+    group: Database
