@@ -1,9 +1,24 @@
 # Wordpresss
 
+## Deploying Wordpress
+
+### Using helm
+
+`helm install . --generate-name -n haakma-org --create-namespace`
+
+### Check deployment
+```bash
+kubens haakma-org
+kubeclt get all
+```
+
+### Remove deployment
+`kubbectl delete namespace haakma-org`
 ## Migrate to kubernetes deployment
-
+To migrate you workdpress site to kubernetes you need to migrate 2 components:
+- the `wp-content` data
+- the database data
 ### Copy the content in the container
-
 The `wp-content` directory is located in `/bitnami/wordpress` in the container.
 
 `kubectl cp backup/haakma.org/backup.tar #pod-name#:/tmp/.`
@@ -27,8 +42,7 @@ mv /tmp/wp-content /bitnami/wordpress/
 ```
 
 ### Load the database in the container
-
-Copy the backup to the mysql docker
+Copy the backup to the mysql docker.
 
 `kubectl cp backup/haakma.org/backup.sql #pod-name#:/tmp/.`
 

@@ -38,3 +38,9 @@ questions:
     label: Password
     required: true
     group: Database
+  - variable: wordpress.wordpressTablePrefix
+    type: string
+    label: Table prefix
+    required: true
+    default: wp_
+    group: Database

@@ -2,7 +2,7 @@ apiVersion: v2
 name: wordpress
 description: A Helm chart for Wordpress used by BronsEnProject
 type: application
-version: 0.1.1
+version: 0.2.0
 appVersion: "5.8.2"
 icon: https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/WordPress-512.png
 maintainers:

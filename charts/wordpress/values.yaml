@@ -5,12 +5,9 @@ wordpress:
       username: wordpress
       password: xxxx
   
-  image:
-    # tag: 5.8.2-debian-10-r16
-    tag: 4.9.8-debian-9-r86
-
   wordpressUsername: user
   wordpressPassword: xxxx
+  wordpressTablePrefix: wp_
   
   # existingSecret: 
   
