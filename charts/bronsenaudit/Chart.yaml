@@ -1,0 +1,6 @@
+apiVersion: v2
+name: bronsenaudit
+description: A Helm repository to deploy the audit suite from BronsEnAudit
+type: application
+version: 0.1.3
+appVersion: "0.0.4"
