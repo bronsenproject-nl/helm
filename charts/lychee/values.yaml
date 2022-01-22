@@ -1,18 +1,39 @@
-# Default values for bronsenaudit.
+# Default values for lychee.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 2
+replicaCount: 1
 
 image:
-  repository: bronsenproject/bronsenaudit
+  repository: lycheeorg/lychee
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.5"
+  tag: "1.41.1"
+
+postgresql:
+  fullnameOverride: postgres
+  persistence: 
+    enabled: true
+    # existingClaim: data-postgres
+  postgresqlDatabase: lychee
+  postgresqlPassword: xxxxxxxxx
+  existingSecret: ""
+  image:
+    tag: 12.9.0-debian-10-r35
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 5Gi
+  existingClaim: 
+    # uploads: uploads-lychee
+    # config: config-lychee
+    # sym: sym-lychee
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -41,19 +62,23 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: test.bronsenaudit.local
-      path: /
-  # tls: []
+    - host: chart-example.local
+      paths: []
+  tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
 
 resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -67,17 +92,6 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
-
-postgresql:
-  fullnameOverride: postgres
-  persistence: 
-    enabled: true
-    # existingClaim: data-postgres
-  postgresqlDatabase: bronsenaudit
-  postgresqlPassword: postgres
-  existingSecret: ""
-  image:
-    tag: 12.9.0-debian-10-r35
 
 nodeSelector: {}
 

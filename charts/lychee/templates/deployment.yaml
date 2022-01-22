@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "lychee.fullname" . }}
+  labels:
+    {{- include "lychee.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "lychee.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "lychee.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "lychee.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          environment:
+            - name: PHP_TZ
+              value: UTC
+            - name: DB_CONNECTION
+              value: pgsql
+            - name: DB_HOST
+              value: {{ .Values.postgresql.fullnameOverride }}
+            - name: DB_PORT
+              value: 5432
+            - name: DB_DATABASE 
+              name: {{ .Values.postgresql.postgresqlDatabase }}
+            - name: DB_USERNAME
+              value: {{ .Values.postgresql.postgresqlUsername }}
+            - name: DB_PASSWORD 
+              value: {{ .Values.postgresql.postgresqlPassword }}
+          volumeMounts:
+            - name: lychee-conf
+              mountPath: /conf
+            - name: lychee-uploads
+              mountPath: /uploads   
+            - name: lychee-sym
+              mountPath: /sym
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: lychee-config
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ (.Values.persistence.existingClaim).config | default (printf "%s-%s" "config" (include "lychee.fullname" .)) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: lychee-uploads
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ (.Values.persistence.existingClaim).uploads | default (printf "%s-%s" "uploads" (include "lychee.fullname" .)) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        - name: lychee-sym
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ (.Values.persistence.existingClaim).sym | default (printf "%s-%s" "sym" (include "lychee.fullname" .)) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
