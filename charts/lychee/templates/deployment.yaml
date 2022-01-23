@@ -33,23 +33,23 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          environment:
+          env:
             - name: PHP_TZ
               value: UTC
             - name: DB_CONNECTION
               value: pgsql
             - name: DB_HOST
-              value: {{ .Values.postgresql.fullnameOverride }}
+              value: "{{ .Values.postgresql.fullnameOverride }}"
             - name: DB_PORT
-              value: 5432
+              value: "5432"
             - name: DB_DATABASE 
-              name: {{ .Values.postgresql.postgresqlDatabase }}
+              value: "{{ .Values.postgresql.postgresqlDatabase }}"
             - name: DB_USERNAME
-              value: {{ .Values.postgresql.postgresqlUsername }}
+              value: "{{ .Values.postgresql.postgresqlUsername }}"
             - name: DB_PASSWORD 
-              value: {{ .Values.postgresql.postgresqlPassword }}
+              value: "{{ .Values.postgresql.postgresqlPassword }}"
           volumeMounts:
-            - name: lychee-conf
+            - name: lychee-config
               mountPath: /conf
             - name: lychee-uploads
               mountPath: /uploads   
