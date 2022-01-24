@@ -64,7 +64,7 @@ questions:
     label: Use existing claim for database
     required: true
     default: true
-    group: Provisioning
+    group: MariaDB
     show_subquestion_if: true
     subquestions:
     - variable: mariadb.auth.existingClaim

@@ -70,21 +70,21 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: config-{{ include "lychee.fullname" . }}
+        - name: lychee-config
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ (.Values.persistence.existingClaim).config | default (printf "%s-%s" "config" (include "lychee.fullname" .)) }}
           {{- else }}
           emptyDir: {}
           {{- end }}
-        - name: uploads-{{ include "lychee.fullname" . }}
+        - name: lychee-uploads
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ (.Values.persistence.existingClaim).uploads | default (printf "%s-%s" "uploads" (include "lychee.fullname" .)) }}
           {{- else }}
           emptyDir: {}
           {{- end }}
-        - name: sym-{{ include "lychee.fullname" . }}
+        - name: lychee-sym
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ (.Values.persistence.existingClaim).sym | default (printf "%s-%s" "sym" (include "lychee.fullname" .)) }}
