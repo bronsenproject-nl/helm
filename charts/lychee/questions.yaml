@@ -59,8 +59,16 @@ questions:
     label: Password
     required: true
     group: MariaDB
-  - variable: mariadb.auth.existingClaim
-    type: string
-    label: Existing volume claim
+  - variable: mariadb.auth.useExistingClaim
+    type: boolean
+    label: Use existing claim for database
     required: true
-    group: MariaDB
+    default: true
+    group: Provisioning
+    show_subquestion_if: true
+    subquestions:
+    - variable: mariadb.auth.existingClaim
+      type: string
+      label: Existing volume claim
+      required: true
+      group: MariaDB
