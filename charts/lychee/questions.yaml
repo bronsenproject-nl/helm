@@ -1,0 +1,60 @@
+---
+questions:
+  - variable: ingress.enabled
+    type: boolean
+    label: Ingress enabled
+    required: true
+    default: true
+    group: Provisioning
+    show_subquestion_if: true
+    subquestions:
+    - variable: ingress.hosts[0].host
+      type: string
+      label: Hostname
+      required: true
+      default: verbouw.haakma.org
+      group: Provisioning
+    - variable: ingress.hosts[0].paths[0].path
+      type: string
+      label: Host path
+      required: true
+      default: /
+      group: Provisioning
+  - variable: persistence.enabled
+    type: boolean
+    label: Persistence enabled
+    required: true
+    default: true
+    group: Provisioning
+    show_subquestion_if: true
+    subquestions:
+    - variable: persistence.existingClaim.uploads
+      type: string
+      label: Existing volume claim for uploads
+      required: false
+      group: Provisioning
+    - variable: persistence.existingClaim.config
+      type: string
+      label: Existing volume claim for configuration
+      required: false
+      group: Provisioning
+    - variable: persistence.existingClaim.logs
+      type: string
+      label: Existing volume claim for logs
+      required: false
+      group: Provisioning
+  - variable: mariadb.auth.database
+    type: string
+    label: Database name
+    required: true
+    group: MariaDB
+  - variable: mariadb.auth.rootPassword
+    type: password
+    label: Password
+    required: true
+    group: MariaDB
+  - variable: mariadb.auth.existingClaim
+    type: string
+    label: Existing volume claim
+    required: true
+    group: MariaDB

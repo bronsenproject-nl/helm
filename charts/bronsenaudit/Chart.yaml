@@ -4,3 +4,7 @@ description: A Helm repository to deploy the audit suite from BronsEnAudit
 type: application
 version: 0.1.3
 appVersion: "0.0.4"
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 10.13.14

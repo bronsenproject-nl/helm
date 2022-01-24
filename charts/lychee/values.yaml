@@ -1,18 +1,34 @@
-# Default values for bronsenaudit.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-replicaCount: 2
+---
+replicaCount: 1
 
 image:
-  repository: bronsenproject/bronsenaudit
+  repository: lycheeorg/lychee
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.5"
+  tag: "v4.3.6"
+
+mariadb:
+  fullnameOverride: mariadb
+  persistence: 
+    enabled: true
+    # existingClaim: data-postgres
+  auth:
+    database: lychee
+    rootPassword: xxxxxxxx
+    existingSecret: ""
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 5Gi
+  existingClaim: 
+    # uploads: uploads-lychee
+    # config: config-lychee
+    # sym: sym-lychee
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -41,14 +57,14 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: test.bronsenaudit.local
-      path: /
-  # tls: []
+    - host: chart-example.local
+      paths: []
+  tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
@@ -67,17 +83,6 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
-
-postgresql:
-  fullnameOverride: postgres
-  persistence: 
-    enabled: true
-    # existingClaim: data-postgres
-  postgresqlDatabase: bronsenaudit
-  postgresqlPassword: postgres
-  existingSecret: ""
-  image:
-    tag: 12.9.0-debian-10-r35
 
 nodeSelector: {}
 
