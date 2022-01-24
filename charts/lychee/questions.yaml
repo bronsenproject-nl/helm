@@ -30,7 +30,7 @@ questions:
     type: boolean
     label: Use existing claims
     required: true
-    default: true
+    default: false
     group: Provisioning
     show_subquestion_if: true
     subquestions:
@@ -62,7 +62,7 @@ questions:
   - variable: mariadb.auth.useExistingClaim
     type: boolean
     label: Use existing claim for database
-    required: true
+    required: false
     default: true
     group: MariaDB
     show_subquestion_if: true
