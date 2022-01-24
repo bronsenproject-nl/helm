@@ -26,6 +26,12 @@ questions:
     required: true
     default: true
     group: Provisioning
+  - variable: persistence.useExistingClaim
+    type: boolean
+    label: Use existing claims
+    required: true
+    default: true
+    group: Provisioning
     show_subquestion_if: true
     subquestions:
     - variable: persistence.existingClaim.uploads
