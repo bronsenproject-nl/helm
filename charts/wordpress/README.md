@@ -1,4 +1,4 @@
-# Wordpresss
+# Wordpress
 
 ## Deploying Wordpress
 
