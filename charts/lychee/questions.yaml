@@ -43,28 +43,18 @@ questions:
       label: Existing volume claim for logs
       required: false
       group: Provisioning
-  - variable: auth.initialPassword
-    type: password
-    label: Initial password
+  - variable: mariadb.auth.database
+    type: string
+    label: Database name
     required: true
-    group: Provisioning
-  - variable: redis.auth.password
+    group: MariaDB
+  - variable: mariadb.auth.rootPassword
     type: password
     label: Password
     required: true
-    group: Redis
-  - variable: redis.master.persistence.existingClaim
+    group: MariaDB
+  - variable: mariadb.auth.existingClaim
     type: string
     label: Existing volume claim
     required: true
-    group: Redis
-  - variable: postgresql.postgresqlPassword
-    type: password
-    label: Password
-    required: true
-    group: PostgreSQL
-  - variable: postgresql.persistence.existingClaim
-    type: string
-    label: Existing volume claim
-    required: true
-    group: PostgreSQL
+    group: MariaDB
