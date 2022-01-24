@@ -37,17 +37,17 @@ spec:
             - name: PHP_TZ
               value: UTC
             - name: DB_CONNECTION
-              value: pgsql
+              value: mysql
             - name: DB_HOST
-              value: "{{ .Values.postgresql.fullnameOverride }}"
+              value: "{{ .Values.mariadb.fullnameOverride }}"
             - name: DB_PORT
-              value: "5432"
+              value: "3306"
             - name: DB_DATABASE 
-              value: "{{ .Values.postgresql.postgresqlDatabase }}"
+              value: "{{ .Values.mariadb.auth.database }}"
             - name: DB_USERNAME
-              value: "{{ .Values.postgresql.postgresqlUsername }}"
+              value: root
             - name: DB_PASSWORD 
-              value: "{{ .Values.postgresql.postgresqlPassword }}"
+              value: "{{ .Values.mariadb.auth.rootPassword }}"
           volumeMounts:
             - name: lychee-config
               mountPath: /conf

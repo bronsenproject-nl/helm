@@ -6,16 +6,15 @@ image:
   pullPolicy: IfNotPresent
   tag: "v4.3.6"
 
-postgresql:
-  fullnameOverride: postgres
+mariadb:
+  fullnameOverride: mariadb
   persistence: 
     enabled: true
     # existingClaim: data-postgres
-  postgresqlDatabase: lychee
-  postgresqlPassword: xxxxxxxxx
-  existingSecret: ""
-  image:
-    tag: 12.9.0-debian-10-r35
+  auth:
+    database: lychee
+    rootPassword: xxxxxxxx
+    existingSecret: ""
 
 imagePullSecrets: []
 nameOverride: ""
